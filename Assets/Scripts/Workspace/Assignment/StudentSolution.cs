@@ -13,7 +13,7 @@ namespace Assignment
             int index = -1;
 
             // Your code here ...
-            // ...
+
             for (int i = 0; i < array.Length; i++)
             {
                 if (array[i] == target)
@@ -40,20 +40,18 @@ namespace Assignment
 
             // Your code here ...
             // ...
-            for (int i = 0; i < array.GetLength(0); i++)
+            for (int r = 0; r < array.GetLength(0); r++)
             {
-                for (int j = 0; j < array.GetLength(1); j++)
+                // r = 0, 1, 2
+                for (int c = 0; c < array.GetLength(1); c++)
                 {
-                    if (array[i, j] == target)
+                    // c = 0, 1, 2
+                    if (array[r, c] == target)
                     {
-                        row = i;
-                        col = j;
+                        row = r;
+                        col = c;
                         break;
                     }
-                }
-                if (row != -1 && col != -1)
-                {
-                    break;
                 }
             }
 
@@ -68,12 +66,12 @@ namespace Assignment
 
             // Your code here ...
             // ...
-            int left = 0;
-            int right = array.Length;
 
+            int left = 0;
+            int right = array.Length - 1;
             while (left <= right)
             {
-                int mid = left + (right - left) / 2;
+                var mid = (left + right) / 2;
                 if (array[mid] == target)
                 {
                     index = mid;
@@ -83,7 +81,7 @@ namespace Assignment
                 {
                     left = mid + 1;
                 }
-                else
+                else if (array[mid] > target)
                 {
                     right = mid - 1;
                 }
@@ -92,23 +90,63 @@ namespace Assignment
             return index;
         }
 
+
         #endregion
 
         #region Assignment
 
         public int[] AS01_FindFirstAndLastElementOfArray(int[] array, int target)
         {
-            throw new NotImplementedException();
+            int first = -1;
+            int last = -1;
+
+            for (int i = 0; i < array.Length; i++)
+            {
+                if (array[i] == target)
+                {
+                    if (first == -1) first = i;
+                    last = i;
+                }
+            }
+
+            if (first == -1) return new int[] { -1 };
+            return new int[] { first, last };
         }
 
         public int AS02_FindMaxLessThan(int[] array, int target)
         {
-            throw new NotImplementedException();
+            int result = -1;
+
+            for (int i = 0; i < array.Length; i++)
+            {
+                if (array[i] < target && array[i] > result)
+                {
+                    result = array[i];
+                }
+            }
+
+            return result;
         }
 
         public int[] AS03_FindRange(int[] array, int min, int max)
         {
-            throw new NotImplementedException();
+            int count = 0;
+            for (int i = 0; i < array.Length; i++)
+            {
+                if (array[i] >= min && array[i] <= max) count++;
+            }
+
+            int[] result = new int[count];
+            int index = 0;
+            for (int i = 0; i < array.Length; i++)
+            {
+                if (array[i] >= min && array[i] <= max)
+                {
+                    result[index++] = array[i];
+                }
+            }
+
+            return result;
         }
 
         #endregion
